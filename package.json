@@ -1,6 +1,6 @@
 {
   "name": "@dynamods/splash-screen",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Splash Screen maintained by Dynamo Team@Autodesk",
   "author": "Autodesk Inc.",
   "license": "MIT",
@@ -21,6 +21,8 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
+    "lint:check": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "start": "webpack serve --config webpack.config.js",
     "build": "webpack --config webpack.config.js --mode=development",
     "bundle": "webpack --config webpack.config.js --mode=production",

@@ -1,4 +1,5 @@
 # SplashScreen
+
 Dynamo Splash Screen
 
 [![License](https://img.shields.io/npm/l/@dynamods/splash-screen)](https://github.com/DynamoDS/SplashScreen/blob/master/LICENSE)
@@ -66,6 +67,19 @@ If you need to update `npm`, you can make it using `npm`!
 
     npm run bundle
 
+## Lint
+
+We use [ESlint](https://eslint.org/) to analyze and find problems. It has [integrations](https://eslint.org/docs/latest/user-guide/integrations) for various editors and other tools.
+
+- To find problems
+
+      npm run lint:check
+
+- To fix problems
+
+      npm run lint:fix
+
 ## Generate Third Party License Info
-* to generate about box html files use `npm run generate_license`, this will output alternative about box files to `license_output/` One will contain the full transitive production dep list, the other will contain the direct production deps.
-* These files will be packed into the released npm package
+
+- to generate about box html files use `npm run generate_license`, this will output alternative about box files to `license_output/` One will contain the full transitive production dep list, the other will contain the direct production deps.
+- These files will be packed into the released npm package

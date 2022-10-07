@@ -1,21 +1,22 @@
-.menuOptions{
-  color:white;    
+.menuOptions {
+  color: white;
   padding-top: 1rem;
   font-size: 13px;
 }
-.dynamoLogo{
+
+.dynamoLogo {
   width: 153px;
 }
 
-.bottomMenu{
+.bottomMenu {
   height: 50%;
 }
 
-.welcomeRow{
+.welcomeRow {
   margin-top: 20px !important;
 }
 
-.screenBackground{
+.screenBackground {
   height: 377px;
   width: 320px;
 }

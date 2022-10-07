@@ -1,20 +1,21 @@
-import './App.css';
 import React from 'react';
-import Dynamic from './Dynamic';
-import Static from './Static';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Dynamic from './Dynamic';
+import Static from './Static';
 import { base64DynamoLogo, base64DynamoBackground } from './encodedImages';
 
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
   constructor() {
     super();
     this.setBackgroundImage();
     this.state = {
-      welcomeToDynamoTitle: "Welcome to Dynamo!",
+      welcomeToDynamoTitle: 'Welcome to Dynamo!',
       loadingDone: false
     };
 
@@ -25,7 +26,7 @@ class App extends React.Component {
   }
 
   setBackgroundImage() {
-    const backgroundImage = "#base64BackgroundImage"
+    const backgroundImage = '#base64BackgroundImage';
     if (!backgroundImage.includes('#'))
       base64DynamoBackground = backgroundImage;
   }
@@ -68,7 +69,7 @@ class App extends React.Component {
           </Col>
         </Row>
       </Container>
-    )
+    );
   }
 
   //This method sets the labels of the splash screen as an option of localization
@@ -78,14 +79,14 @@ class App extends React.Component {
       signInTitle: labels.signInTitle,
       launchTitle: labels.launchTitle,
       showScreenAgainLabel: labels.showScreenAgainLabel
-    })
+    });
   }
 
   //This methos is called when the loading is done from Dynamo side
   setLoadingDone() {
     this.setState({
       loadingDone: true
-    })
+    });
   }
 }
 
