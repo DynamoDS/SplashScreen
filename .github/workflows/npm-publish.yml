@@ -18,9 +18,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci --force
-      - run: npm run build --if-present
-      # - run: npm test
+      - name: Install dependencies
+        run: npm ci --force
+      - name: Build for development
+        run: npm run build --if-present
+      - name: Run Test
+        run: npm run test:unit
 
   # Build prod bundle and publish publicly
   publish-npm:
@@ -32,9 +35,12 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm ci --force
-      - run: npm run production --if-present
-      # - run: npm test
+      - name: Install dependencies
+        run: npm ci --force
+      - name: Build for production
+        run: npm run production --if-present
+      - name: Run Test
+        run: npm run test:unit
         env:
           # Set environment to production just in case
           NODE_ENV: production
