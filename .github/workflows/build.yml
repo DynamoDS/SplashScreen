@@ -12,9 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    permissions:
-      pull-requests: write
-
     strategy:
       matrix:
         node-version: [16.x]
@@ -42,4 +39,3 @@ jobs:
         with:
           coverage-files: coverage/lcov.info
           minimum-coverage: 50
-          github-token: ${{ secrets.GITHUB_TOKEN }}
