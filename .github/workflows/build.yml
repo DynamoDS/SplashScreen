@@ -34,3 +34,9 @@ jobs:
         run: npx playwright install chromium --with-deps
       - name: E2E tests
         run: npm run test:e2e
+      - name: Code Coverage Report
+        uses: zgosalvez/github-actions-report-lcov@v1
+        with:
+          coverage-files: coverage/lcov.info
+          minimum-coverage: 50
+          github-token: ${{ secrets.GITHUB_TOKEN }}

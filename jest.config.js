@@ -9,4 +9,8 @@ module.exports = {
     '\\.(css|less)$': '<rootDir>/tests/__mocks__/styleMock.js',
   },
   testEnvironment: 'jsdom',
+  collectCoverage: true,
+  collectCoverageFrom: ['<rootDir>/src/**/*.{js,jsx}'],
+  coverageDirectory: '<rootDir>/coverage',
+  coverageReporters: ['text', 'lcov'],
 };
