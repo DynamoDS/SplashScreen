@@ -83,7 +83,7 @@ class App extends React.Component {
     });
   }
 
-  //This methos is called when the loading is done from Dynamo side
+  //This method is called when the loading is done from Dynamo side
   setLoadingDone() {
     this.setState({
       loadingDone: true
