@@ -31,7 +31,7 @@
     "lic_direct": "npx @adsk/adsk-npm-license-puller --path . --app-name 'splash-screen' --verbose --about-box ./license_output/about-box_direct.html --about-box-type desktop --year 2022 --paos ./license_output/paos_direct.csv",
     "lic_transitive": "npx @adsk/adsk-npm-license-puller --path . --app-name 'splash-screen' --verbose --about-box ./license_output/about-box_transitive.html --about-box-type desktop --transitive --year 2022 --paos ./license_output/paos_transitive.csv",
     "generate_license": "npm run lic_direct && npm run lic_transitive",
-    "test:unit": "jest tests/App.test.js",
+    "test:unit": "NODE_ENV=test jest tests/App.test.js",
     "test:e2e": "playwright test tests/e2e.test.js",
     "eject": "react-scripts eject"
   },
