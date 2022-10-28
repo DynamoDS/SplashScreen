@@ -37,15 +37,17 @@ class Static extends React.Component {
     return (
       <Container className='pr-3'>
         <Row className='mt-3'>
-          <button id="btnSignIn" className='primaryButton' onClick={this.signIn}>
-          {this.state.signInTitle}
-          </button>
-        </Row>
-        <Row className='mt-3'>
           <button className='secondaryButton' onClick={this.launchDynamo}>
             {this.props.launchTitle}
           </button>
         </Row>
+
+        <Row className='mt-3'>
+          <button id="btnSignIn" className='primaryButton' onClick={this.signIn}>
+          {this.state.signInTitle}
+          </button>
+        </Row>
+
         <Row className='mt-3'>
           <OverlayTrigger
             placement={'right'}
@@ -100,6 +102,7 @@ class Static extends React.Component {
   }
 
   //Opens a page to signin
+  //TODO: Localize strings by setting text as per what Dynamo sends in.
   signIn = async () => {
     if (chrome.webview !== undefined ) {
       if(this.state.signInStatus){
