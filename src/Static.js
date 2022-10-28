@@ -20,14 +20,15 @@ const importStatusEnum = {
 let checked = false;
 
 class Static extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       importStatus: importStatusEnum.none,
       importSettingsTitle: 'Import settings',
-      errorDescription:
-                'Something went wrong when importing your custom setting file. Please try again or proceed with default settings.',
+      errorDescription: 'Something went wrong when importing your custom setting file. Please try again or proceed with default settings.',
+      signInTitle: this.props.signInTitle,
+      signInStatus: this.props.signInStatus
     };
 
     window.setImportStatus = this.setImportStatus.bind(this);
@@ -36,8 +37,8 @@ class Static extends React.Component {
     return (
       <Container className='pr-3'>
         <Row className='mt-3'>
-          <button className='primaryButton' onClick={this.signIn}>
-            {this.props.signInTitle}
+          <button id="btnSignIn" className='primaryButton' onClick={this.signIn}>
+          {this.state.signInTitle}
           </button>
         </Row>
         <Row className='mt-3'>
@@ -99,8 +100,33 @@ class Static extends React.Component {
   }
 
   //Opens a page to signin
-  signIn() {
-    window.open('https://accounts.autodesk.com/', '_blank');
+  signIn = async () => {
+    if (chrome.webview !== undefined ) {
+      if(this.state.signInStatus){
+        var ret = await chrome.webview.hostObjects.scriptObject.SignOut();
+        this.setState({signInStatus: !ret,
+          signInTitle: "Sign In"})
+      }
+      else
+      {
+        var btn=document.getElementById("btnSignIn");
+        btn.classList.add('disableButton');
+        btn.disabled = true;
+
+        this.setState({signInTitle: "Signing In"})
+        var ret = await chrome.webview.hostObjects.scriptObject.SignIn(true);
+        this.setState({ signInStatus: ret });
+
+        btn.classList.remove('disableButton');
+        btn.disabled = false;
+        if(ret){
+          this.setState({signInTitle: "Sign Out"})
+        }
+        else{
+          this.setState({signInTitle: "Sign In"})
+        }
+      }
+    }
   }
 
   //This method calls another method from Dynamo to actually launch it
@@ -144,13 +170,13 @@ class Static extends React.Component {
 Static.defaultProps = {
   signInTitle: 'Sign in',
   launchTitle: 'Launch Dynamo',
-  showScreenAgainLabel: 'Don’t show this screen again',
+  showScreenAgainLabel: 'Don’t show this screen again'
 };
 
 Static.propTypes = {
   signInTitle: PropTypes.string,
   launchTitle: PropTypes.string,
-  showScreenAgainLabel: PropTypes.string,
+  showScreenAgainLabel: PropTypes.string
 };
 
 export default Static;

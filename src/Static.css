@@ -17,6 +17,10 @@
     height: 24px;
 }
 
+.disableButton{
+    background-color: #6e6e6e;
+}
+
 .secondaryButton {
     color: white;
     border-radius: 2px;

@@ -16,13 +16,15 @@ class App extends React.Component {
     this.setBackgroundImage();
     this.state = {
       welcomeToDynamoTitle: 'Welcome to Dynamo!',
-      loadingDone: false
+      loadingDone: false,
+      signInStatus:false
     };
 
     //This is a reference to the DOM of the project that will be called in Dynamo to set the title of the splash screen (Defined by 'Welcome to Dynamo!' by default)
     window.setLabels = this.setLabels.bind(this);
 
     window.setLoadingDone = this.setLoadingDone.bind(this);
+    window.setSignInStatus = this.setSignInStatus.bind(this);
   }
 
   setBackgroundImage() {
@@ -54,13 +56,14 @@ class App extends React.Component {
             <Row className='bottomMenu'>
               <Col>
                 {
-                  this.state.loadingDone ?
-                    <Static
-                      signInTitle={this.state.signInTitle}
-                      welcomeToDynamoTitle={this.state.welcomeToDynamoTitle}
-                      launchTitle={this.state.launchTitle}
-                      showScreenAgainLabel={this.state.showScreenAgainLabel}
-                    /> : <Dynamic />
+                   this.state.loadingDone ?
+                   <Static
+                     signInStatus={this.state.signInStatus}
+                     signInTitle={this.state.signInTitle}
+                     welcomeToDynamoTitle={this.state.welcomeToDynamoTitle}
+                     launchTitle={this.state.launchTitle}
+                     showScreenAgainLabel={this.state.showScreenAgainLabel}
+                   /> : <Dynamic />
                 }
               </Col>
             </Row>
@@ -83,9 +86,19 @@ class App extends React.Component {
     });
   }
 
-  //This method is called when the loading is done from Dynamo side
-  setLoadingDone() {
+  //Set the login status from Dynamo
+  setSignInStatus(isLoggedIn) {
     this.setState({
+      signInStatus: isLoggedIn,
+    });
+  }
+
+  //This method is called when the loading is done from Dynamo side
+  setLoadingDone = async () => {
+    var ret = await chrome.webview.hostObjects.scriptObject.SignIn(false);
+    this.setState({
+      signInStatus: ret,
+      signInTitle: ret ? 'Sign Out' : 'Sign In',
       loadingDone: true
     });
   }
