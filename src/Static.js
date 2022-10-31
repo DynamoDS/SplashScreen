@@ -117,7 +117,7 @@ class Static extends React.Component {
         btn.disabled = true;
 
         this.setState({signInTitle: "Signing In"})
-        var ret = await chrome.webview.hostObjects.scriptObject.SignIn(true);
+        var ret = await chrome.webview.hostObjects.scriptObject.SignIn();
         this.setState({ signInStatus: ret });
 
         btn.classList.remove('disableButton');
@@ -173,7 +173,7 @@ class Static extends React.Component {
 Static.defaultProps = {
   signInTitle: 'Sign in',
   launchTitle: 'Launch Dynamo',
-  showScreenAgainLabel: 'Don’t show this screen again'
+  showScreenAgainLabel: 'Don\'t show this screen again'
 };
 
 Static.propTypes = {

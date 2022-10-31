@@ -80,25 +80,22 @@ class App extends React.Component {
   setLabels(labels) {
     this.setState({
       welcomeToDynamoTitle: labels.welcomeToDynamoTitle,
-      signInTitle: labels.signInTitle,
       launchTitle: labels.launchTitle,
       showScreenAgainLabel: labels.showScreenAgainLabel
     });
   }
 
   //Set the login status from Dynamo
-  setSignInStatus(isLoggedIn) {
+  setSignInStatus(val) {
     this.setState({
-      signInStatus: isLoggedIn,
+      signInTitle: val.signInTitle,
+      signInStatus: val.signInStatus === "True",
     });
   }
 
   //This method is called when the loading is done from Dynamo side
   setLoadingDone = async () => {
-    var ret = await chrome.webview.hostObjects.scriptObject.SignIn(false);
     this.setState({
-      signInStatus: ret,
-      signInTitle: ret ? 'Sign Out' : 'Sign In',
       loadingDone: true
     });
   }
