@@ -16,7 +16,7 @@ test.describe('SplashScreen', () => {
     await expect(welcomeRow).toHaveText('Welcome to Dynamo!');
 
     const dynamicOptions = page.locator('.dynamicOptions');
-    await expect(dynamicOptions).toContainText('Dynamo core');
+    await expect(dynamicOptions).toContainText('Dynamo Core');
 
     const progressBarContainer = page.locator('.progress-bar-container');
     await expect(progressBarContainer).toBeVisible;
