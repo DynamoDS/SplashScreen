@@ -20,7 +20,7 @@ class Dynamic extends React.Component {
     return (
       <div className='dynamicOptions'>
         <div >
-          Dynamo core {this.state.dynamoVersion}
+          Dynamo Core {this.state.dynamoVersion}
         </div>
         <div>
           <div className='progress-bar-container'>
