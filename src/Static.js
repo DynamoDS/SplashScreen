@@ -28,7 +28,8 @@ class Static extends React.Component {
       importSettingsTitle: 'Import settings',
       errorDescription: 'Something went wrong when importing your custom setting file. Please try again or proceed with default settings.',
       signInTitle: this.props.signInTitle,
-      signInStatus: this.props.signInStatus
+      signInStatus: this.props.signInStatus,
+      importSettingsTitle: this.props.importSettingsTitle,
     };
 
     window.setImportStatus = this.setImportStatus.bind(this);
@@ -44,7 +45,7 @@ class Static extends React.Component {
 
         <Row className='mt-3'>
           <button id="btnSignIn" className='primaryButton' onClick={this.signIn}>
-          {this.state.signInTitle}
+            {this.state.signInTitle}
           </button>
         </Row>
 
@@ -54,29 +55,24 @@ class Static extends React.Component {
             overlay={
               <Tooltip
                 hidden={this.state.importStatus !== importStatusEnum.error}
-                id='button-tooltip'
-              >
+                id='button-tooltip'>
                 {this.state.errorDescription}
               </Tooltip>
-            }
-          >
+            }>
             <label className='primaryButton px-1'>
               <input
                 type='file'
                 className='primaryButton'
-                onChange={(e) => this.readFile(e)}
-              />
+                onChange={(e) => this.readFile(e)} />
               <div className='buttonLabel'>
                 <img
                   src={warningIcon}
                   alt=''
-                  hidden={this.state.importStatus !== importStatusEnum.error}
-                ></img>
+                  hidden={this.state.importStatus !== importStatusEnum.error}></img>
                 <img
                   src={checkMarkIcon}
                   alt=''
-                  hidden={this.state.importStatus !== importStatusEnum.success}
-                ></img>
+                  hidden={this.state.importStatus !== importStatusEnum.success}></img>
                 <div className='importSettingsText'>
                   <span>{this.state.importSettingsTitle}</span>
                 </div>
@@ -89,8 +85,7 @@ class Static extends React.Component {
             <input
               type='checkbox'
               onChange={this.handleChange}
-              className='checkBoxStyle'
-            />
+              className='checkBoxStyle' />
             <span className='checkmark'>
               {' '}
               {this.props.showScreenAgainLabel}{' '}
@@ -104,29 +99,30 @@ class Static extends React.Component {
   //Opens a page to signin
   //TODO: Localize strings by setting text as per what Dynamo sends in.
   signIn = async () => {
-    if (chrome.webview !== undefined ) {
-      if(this.state.signInStatus){
+    if (chrome.webview !== undefined) {
+      if (this.state.signInStatus) {
         var ret = await chrome.webview.hostObjects.scriptObject.SignOut();
-        this.setState({signInStatus: !ret,
-          signInTitle: "Sign In"})
+        this.setState({
+          signInStatus: !ret,
+          signInTitle: "Sign In"
+        })
       }
-      else
-      {
-        var btn=document.getElementById("btnSignIn");
+      else {
+        var btn = document.getElementById("btnSignIn");
         btn.classList.add('disableButton');
         btn.disabled = true;
 
-        this.setState({signInTitle: "Signing In"})
+        this.setState({ signInTitle: "Signing In" })
         var ret = await chrome.webview.hostObjects.scriptObject.SignIn();
         this.setState({ signInStatus: ret });
 
         btn.classList.remove('disableButton');
         btn.disabled = false;
-        if(ret){
-          this.setState({signInTitle: "Sign Out"})
+        if (ret) {
+          this.setState({ signInTitle: "Sign Out" })
         }
-        else{
-          this.setState({signInTitle: "Sign In"})
+        else {
+          this.setState({ signInTitle: "Sign In" })
         }
       }
     }

@@ -63,6 +63,7 @@ class App extends React.Component {
                      welcomeToDynamoTitle={this.state.welcomeToDynamoTitle}
                      launchTitle={this.state.launchTitle}
                      showScreenAgainLabel={this.state.showScreenAgainLabel}
+                     importSettingsTitle={this.state.importSettingsTitle}
                    /> : <Dynamic />
                 }
               </Col>
@@ -81,7 +82,8 @@ class App extends React.Component {
     this.setState({
       welcomeToDynamoTitle: labels.welcomeToDynamoTitle,
       launchTitle: labels.launchTitle,
-      showScreenAgainLabel: labels.showScreenAgainLabel
+      showScreenAgainLabel: labels.showScreenAgainLabel,
+      importSettingsTitle: labels.importSettingsTitle
     });
   }
 
