@@ -168,7 +168,8 @@ class Static extends React.Component {
 Static.defaultProps = {
   signInTitle: 'Sign in',
   launchTitle: 'Launch Dynamo',
-  showScreenAgainLabel: 'Don\'t show this screen again'
+  showScreenAgainLabel: 'Don\'t show this screen again',
+  importSettingsTitle: 'Import Settings',
 };
 
 Static.propTypes = {
