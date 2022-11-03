@@ -25,7 +25,6 @@ class Static extends React.Component {
 
     this.state = {
       importStatus: importStatusEnum.none,
-      importSettingsTitle: 'Import settings',
       errorDescription: 'Something went wrong when importing your custom setting file. Please try again or proceed with default settings.',
       signInTitle: this.props.signInTitle,
       signInStatus: this.props.signInStatus,
