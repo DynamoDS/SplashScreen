@@ -129,7 +129,7 @@ class Static extends React.Component {
 
         btn.classList.remove('disableButton');
         btn.disabled = false;
-        if (ret) {
+        if (status) {
           this.setState({ signInTitle: 'Sign Out' });
         }
         else {
