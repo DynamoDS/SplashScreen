@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       welcomeToDynamoTitle: 'Welcome to Dynamo!',
       loadingDone: false,
-      signInStatus:false
+      signInStatus: false
     };
 
     //This is a reference to the DOM of the project that will be called in Dynamo to set the title of the splash screen (Defined by 'Welcome to Dynamo!' by default)
@@ -71,7 +71,7 @@ class App extends React.Component {
             </Row>
           </Col>
           <Col className='p-0' >
-            <span onClick={this.closeDynamo} className='close'/>
+            {this.state.loadingDone && <span onClick={this.closeDynamo} className='close' />}
             <img className='screenBackground' alt='' src={base64DynamoBackground}></img>
           </Col>
         </Row>
@@ -104,8 +104,8 @@ class App extends React.Component {
       loadingDone: true
     });
   };
-  
-  closeDynamo(){
+
+  closeDynamo() {
     if (chrome.webview !== undefined) {
       chrome.webview.hostObjects.scriptObject.CloseWindow();
     }

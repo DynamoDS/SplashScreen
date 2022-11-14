@@ -112,19 +112,19 @@ class Static extends React.Component {
   signIn = async () => {
     if (chrome.webview !== undefined) {
       if (this.state.signInStatus) {
-        var ret = await chrome.webview.hostObjects.scriptObject.SignOut();
+        let status = await chrome.webview.hostObjects.scriptObject.SignOut();
         this.setState({
-          signInStatus: !ret,
+          signInStatus: !status,
           signInTitle: 'Sign In'
         });
       }
       else {
-        var btn = document.getElementById('btnSignIn');
+        let btn = document.getElementById('btnSignIn');
         btn.classList.add('disableButton');
         btn.disabled = true;
 
         this.setState({ signInTitle: 'Signing In' });
-        var status = await chrome.webview.hostObjects.scriptObject.SignIn();
+        let status = await chrome.webview.hostObjects.scriptObject.SignIn();
         this.setState({ signInStatus: status });
 
         btn.classList.remove('disableButton');
@@ -151,7 +151,7 @@ class Static extends React.Component {
   readFile(event) {
     let file = event.target.files[0];
     if (file) {
-      var fr = new FileReader();
+      let fr = new FileReader();
       fr.onload = function () {
         if (chrome.webview !== undefined) {
           chrome.webview.hostObjects.scriptObject.ImportSettings(fr.result);
