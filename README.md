@@ -89,3 +89,7 @@ We use [ESlint](https://eslint.org/) to analyze and find problems. It has [integ
 ```shell
 npm run version:patch   # To bump patch version
 ```
+
+## Splash Screen image requirements
+
+Ensure Splash screen image is between 400 - 500px in all dimensions. Refer to https://github.com/DynamoDS/SplashScreen as example. 
