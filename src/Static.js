@@ -49,7 +49,7 @@ class Static extends React.Component {
 
         <Row className='mt-3'>
         <button id='btnSignIn' className='primaryButton' onClick={this.signIn} tabIndex={2}>
-            {this.props.signInTitle}
+            {this.state.signInTitle}
           </button>
         </Row>
 
