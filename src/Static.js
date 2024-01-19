@@ -36,8 +36,6 @@ class Static extends React.Component {
     window.setEnableSignInButton = this.setEnableSignInButton.bind(this);
     window.handleSignInStateChange = this.handleSignInStateChange.bind(this);
     this.handleChange = this.handleChange.bind(this)
-    console.log(this.state)
-    console.log(this.props)
   }
 
   componentDidMount() {

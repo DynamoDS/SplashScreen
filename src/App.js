@@ -135,7 +135,7 @@ class App extends React.Component {
 
   closeDynamo() {
     if (chrome.webview !== undefined) {
-      chrome.webview.hostObjects.scriptObject.CloseWindow(this.state.isChecked);
+      chrome.webview.hostObjects.scriptObject.CloseWindowPreserve(this.state.isChecked);
     }
   }
 }
