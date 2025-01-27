@@ -26,7 +26,6 @@ class App extends React.Component {
     window.setLoadingDone = this.setLoadingDone.bind(this);
     window.setSignInStatus = this.setSignInStatus.bind(this);
     this.handleCheckedChange = this.handleCheckedChange.bind(this);
-    this.closeDynamo = this.closeDynamo.bind(this);
   }
 
   handleCheckedChange = (checked) => {
@@ -44,14 +43,6 @@ class App extends React.Component {
     document.addEventListener('keydown', this.handleKeyDown);
     //TODO : As alternative we can receive the event from the Childs like the Static component
   }
-
-  handleKeyDown = (e) => {
-    if (e.key === 'Escape') {
-      if (this.state.loadingDone) {
-        this.closeDynamo();
-      }
-    }
-  };
 
   render() {
     return (
@@ -132,12 +123,6 @@ class App extends React.Component {
       loadingDone: true
     });
   };
-
-  closeDynamo() {
-    if (chrome.webview !== undefined) {
-      chrome.webview.hostObjects.scriptObject.CloseWindowPreserve(this.state.isChecked);
-    }
-  }
 }
 
 export default App;

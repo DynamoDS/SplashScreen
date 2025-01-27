@@ -20,34 +20,3 @@
   height: 412px;
   width: 394px;
 }
-
-.close {
-  position: absolute;
-  cursor: pointer;
-  right: 32px;
-  top: 15px;
-  width: 16px;
-  height: 16px;
-  opacity: 0.3;
-}
-
-.close:hover {
-  opacity: 1;
-}
-
-.close:before, .close:after {
-  position: absolute;
-  left: 25px;
-  content: ' ';
-  height: 16px;
-  width: 2px;
-  background-color: #333;
-}
-
-.close:before {
-  transform: rotate(45deg);
-}
-
-.close:after {
-  transform: rotate(-45deg);
-}
