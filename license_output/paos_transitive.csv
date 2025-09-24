@@ -1,6 +1,6 @@
 publisher,name,version,copyright,dateAdded,estimatedReleaseDate,license,distributed
-"The Babel Team",@babel/runtime,"7.28.4","Copyright (c) 2014-present Sebastian McKenzie and other contributors","","",MIT,false
-"Autodesk Inc.",@dynamods/splash-screen,"1.0.28","Copyright (c) 2025 DynamoDS","","",MIT,false
+"The Babel Team",@babel/runtime,"7.27.0","Copyright (c) 2014-present Sebastian McKenzie and other contributors","","",MIT,false
+"Autodesk Inc.",@dynamods/splash-screen,"1.0.29","Copyright (c) 2025 DynamoDS","","",MIT,false
 "Federico Zivolo",@popperjs/core,"2.11.6","Copyright (c) 2019 Federico Zivolo","","",MIT,false
 "",@react-aria/ssr,"3.3.0","","","","Apache-2.0",false
 "Jason Quense",@restart/hooks,"0.4.7","Copyright (c) 2018 Jason Quense","","",MIT,false
@@ -27,6 +27,7 @@ publisher,name,version,copyright,dateAdded,estimatedReleaseDate,license,distribu
 "",react-lifecycles-compat,"3.0.4","Copyright (c) 2013-present, Facebook, Inc.","","",MIT,false
 "",react-transition-group,"4.4.5","Copyright (c) 2018, React Community. Forked from React (https://github.com/facebook/react) Copyright 2013-present, Facebook, Inc.. All rights reserved.","","",BSD-3-Clause,false
 "",react,"18.2.0","Copyright (c) Facebook, Inc. and its affiliates.","","",MIT,false
+"Ben Newman",regenerator-runtime,"0.14.1","Copyright (c) 2014-present, Facebook, Inc.","","",MIT,false
 "",scheduler,"0.23.0","Copyright (c) Facebook, Inc. and its affiliates.","","",MIT,false
 "Jason Quense",uncontrollable,"7.2.1","Copyright (c) 2015 Jason Quense","","",MIT,false
 "Berkeley Martinez",warning,"4.0.3","Copyright (c) 2013-present, Facebook, Inc.","","",MIT,false
