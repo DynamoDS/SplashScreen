@@ -1,6 +1,6 @@
 {
   "name": "@dynamods/splash-screen",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "Splash Screen maintained by Dynamo Team@Autodesk",
   "author": "Autodesk Inc.",
   "license": "MIT",
@@ -17,8 +17,7 @@
     "bootstrap": "^5.2.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-dom": "^18.2.0"
   },
   "scripts": {
     "lint:check": "eslint src/ tests/",
@@ -60,7 +59,8 @@
     "@testing-library/react": "^13.4.0",
     "html-webpack-plugin": "^4.5.2",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "react-scripts": "^5.0.1"
   },
   "bugs": {
     "url": "https://github.com/DynamoDS/SplashScreen/issues"
