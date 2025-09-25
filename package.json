@@ -1,6 +1,6 @@
 {
   "name": "@dynamods/splash-screen",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "Splash Screen maintained by Dynamo Team@Autodesk",
   "author": "Autodesk Inc.",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "lint:check": "eslint src/ tests/",
