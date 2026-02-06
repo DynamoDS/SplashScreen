@@ -301,7 +301,7 @@ Static.defaultProps = {
     showScreenAgainLabel: 'Don\'t show this screen again',
     importSettingsTitle: 'Import Settings',
     importSettingsTooltipDescription: 'You can import custom settings here, which will overwrite your current settings. If you\'d like to preserve a copy of your current settings, export them before importing new settings. Settings not shown in the Preferences panel will be applied once Dynamo and any host program restarts.',
-    restartMessage: 'Settings imported successfully. Please restart Dynamo for changes to take effect.',
+    restartMessage: 'Settings imported. Please restart Dynamo.',
     resetTooltip: 'Reset imported settings'
   }
 };
