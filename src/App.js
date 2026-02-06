@@ -49,7 +49,7 @@ class App extends React.Component {
       <Container fluid>
         <Row>
           <Col className='menuOptions px-4' >
-            <Row className='bottomMenu'>
+            <Row className='bottomMenu bottomMenuHeader'>
               <Col>
                 <Row>
                   <div>
@@ -63,22 +63,13 @@ class App extends React.Component {
                 </Row>
               </Col>
             </Row>
-            <Row className='bottomMenu'>
+            <Row className='bottomMenu bottomMenuContent'>
               <Col>
                 {
                   this.state.loadingDone ?
                     <Static
                       signInStatus={this.state.signInStatus}
-                      signInTitle={this.state.signInTitle}
-                      signInTooltip={this.state.signInTooltip}
-                      signingInTitle={this.state.signingInTitle}
-                      signOutTitle={this.state.signOutTitle}
-                      signOutTooltip={this.state.signOutTooltip}
-                      welcomeToDynamoTitle={this.state.welcomeToDynamoTitle}
-                      launchTitle={this.state.launchTitle}
-                      showScreenAgainLabel={this.state.showScreenAgainLabel}
-                      importSettingsTitle={this.state.importSettingsTitle}
-                      importSettingsTooltipDescription={this.state.importSettingsTooltipDescription}
+                      labels={this.state.labels}
                       onCheckedChange={this.handleCheckedChange}
                     /> : <Dynamic />
                 }
@@ -98,15 +89,7 @@ class App extends React.Component {
   setLabels(labels) {
     this.setState({
       welcomeToDynamoTitle: labels.welcomeToDynamoTitle,
-      launchTitle: labels.launchTitle,
-      showScreenAgainLabel: labels.showScreenAgainLabel,
-      importSettingsTitle: labels.importSettingsTitle,
-      importSettingsTooltipDescription: labels.importSettingsTooltipDescription,
-      signInTitle: labels.signInTitle,
-      signInTooltip: labels.signInTooltip,
-      signingInTitle: labels.signingInTitle,
-      signOutTitle: labels.signOutTitle,
-      signOutTooltip: labels.signOutTooltip
+      labels: labels
     });
   }
 
