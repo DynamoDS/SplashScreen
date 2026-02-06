@@ -77,7 +77,7 @@ class Static extends React.Component {
               <Tooltip
                 hidden={this.state.importStatus === importStatusEnum.success}
                 id='button-tooltip'>
-                {this.state.importStatus == importStatusEnum.error ? this.state.errorDescription : this.props.labels.importSettingsTooltipDescription}
+                {this.state.importStatus === importStatusEnum.error ? this.state.errorDescription : this.props.labels.importSettingsTooltipDescription}
               </Tooltip>
             }>
             <label id='lblImportSettings' className='primaryButton px-1' tabIndex={3}>
