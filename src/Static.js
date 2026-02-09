@@ -117,14 +117,6 @@ class Static extends React.Component {
           )}
         </Row>
 
-        {this.state.showRestartMessage && (
-          <Row className='mt-2 g-0 restartMessageFullBleed'>
-            <div className='restartMessage'>
-              {this.props.labels.restartMessage}
-            </div>
-          </Row>
-        )}
-
         <Row className='mt-3'>
           <label className='p-0 checkboxShowScreenAgain '>
             <input
@@ -150,7 +142,7 @@ class Static extends React.Component {
 
   //Opens a page to signin
   signIn = async () => {
-    if (chrome.webview !== undefined) {
+    if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
       if (this.state.signInStatus) {
         let status = await chrome.webview.hostObjects.scriptObject.SignOut();
         this.setState({
@@ -188,8 +180,8 @@ class Static extends React.Component {
 
   //This method calls another method from Dynamo to actually launch it
   launchDynamo() {
-    if (chrome.webview !== undefined) {
-      //The 'checked' is a boolean that represents if the user don't want to show the Static screen again
+    //The 'checked' is a boolean that represents if the user don't want to show the Static screen again
+    if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
       chrome.webview.hostObjects.scriptObject.LaunchDynamo(checked);
     }
   }
@@ -200,7 +192,7 @@ class Static extends React.Component {
     if (file) {
       let fr = new FileReader();
       fr.onload = function () {
-        if (chrome.webview !== undefined) {
+        if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
           chrome.webview.hostObjects.scriptObject.ImportSettings(fr.result);
         }
       };
@@ -209,6 +201,12 @@ class Static extends React.Component {
 
       // Clear the input so the same file can be selected again
       event.target.value = '';
+
+      // Debug mode: mock Dynamo callbacks when running outside WebView2
+      if (typeof chrome === 'undefined' || typeof chrome.webview === 'undefined') {
+        console.log('[SplashScreen] Debug mode: mocking import callbacks');
+        this.setImportStatus({ status: 3, importSettingsTitle: 'Import Settings', errorDescription: '' });
+      }
     }
   }
 
@@ -219,6 +217,12 @@ class Static extends React.Component {
       importSettingsTitle: importStatus.importSettingsTitle,
       errorDescription: importStatus.errorDescription,
     });
+
+    if (importStatus.status === importStatusEnum.success) {
+      this.showRestartMessage();
+    } else if (importStatus.status === importStatusEnum.none) {
+      this.hideRestartMessage();
+    }
   }
 
   setTotalLoadingTime(loadingTime) {
@@ -264,6 +268,10 @@ class Static extends React.Component {
     this.setState({
       showRestartMessage: true
     });
+    if (window.showToast) {
+      const message = (this.props.labels && this.props.labels.restartMessage) || Static.defaultProps.labels.restartMessage;
+      window.showToast(message, 'success');
+    }
   }
 
   //Hide restart message and reset button
@@ -271,11 +279,14 @@ class Static extends React.Component {
     this.setState({
       showRestartMessage: false
     });
+    if (window.hideToast) {
+      window.hideToast();
+    }
   }
 
   //Reset imported settings
   resetSettings = () => {
-    if (chrome.webview !== undefined) {
+    if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
       chrome.webview.hostObjects.scriptObject.ResetSettings();
     }
   };

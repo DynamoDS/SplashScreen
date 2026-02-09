@@ -146,32 +146,3 @@ input[type="file"] {
     height: 16px;
     display: block;
 }
-
-/* Restart message styles - full width */
-.restartMessage {
-    width: 100%;
-    animation: slideIn 0.3s ease;
-    font-size: 10px;
-    line-height: 1.3;
-    color: yellow;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    box-sizing: border-box;
-}
-
-.restartMessageFullBleed {
-    margin-left: -1.7rem !important;
-    width: calc(100% + 3.7rem);
-    margin-bottom: -0.5rem;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}

@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 
 import Dynamic from './Dynamic';
 import Static from './Static';
+import Toast from './Toast';
 import { base64DynamoLogo, base64DynamoBackground } from './encodedImages';
 
 import './App.css';
@@ -14,6 +15,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.setBackgroundImage();
+    this.isDebugMode = typeof chrome === 'undefined' || typeof chrome.webview === 'undefined';
     this.state = {
       isChecked: false,
       welcomeToDynamoTitle: 'Welcome to Dynamo!',
@@ -41,7 +43,12 @@ class App extends React.Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
-    //TODO : As alternative we can receive the event from the Childs like the Static component
+
+    // Debug mode: auto-show Static when running outside Dynamo (no WebView2)
+    if (this.isDebugMode) {
+      console.log('[SplashScreen] Debug mode: no WebView2 detected, auto-loading Static');
+      this.setLoadingDone();
+    }
   }
 
   render() {
@@ -60,6 +67,7 @@ class App extends React.Component {
                   <div >
                     {this.state.welcomeToDynamoTitle}
                   </div>
+                  {this.isDebugMode && <div style={{ fontSize: '10px', color: 'yellow', marginTop: '4px' }}>Debug Mode</div>}
                 </Row>
               </Col>
             </Row>
@@ -81,6 +89,7 @@ class App extends React.Component {
             <img className='screenBackground' alt='' src={base64DynamoBackground}></img>
           </Col>
         </Row>
+        <Toast />
       </Container>
     );
   }
