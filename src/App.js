@@ -15,7 +15,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.setBackgroundImage();
-    this.isDebugMode = typeof chrome === 'undefined' || typeof chrome.webview === 'undefined';
+    const noWebView = typeof chrome === 'undefined' || typeof chrome.webview === 'undefined';
+    this.isDebugMode = noWebView && new URLSearchParams(window.location.search).has('debug');
     this.state = {
       isChecked: false,
       welcomeToDynamoTitle: 'Welcome to Dynamo!',
