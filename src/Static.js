@@ -24,17 +24,20 @@ class Static extends React.Component {
     this.state = {
       importStatus: importStatusEnum.none,
       errorDescription: 'Something went wrong when importing your custom setting file. Please try again or proceed with default settings.',
-      signInTitle: this.props.signInStatus ? this.props.signOutTitle : this.props.signInTitle,
-      signInTooltip: this.props.signInStatus ? this.props.signOutTooltip : this.props.signInTooltip,
+      signInTitle: this.props.signInStatus ? this.props.labels.signOutTitle : this.props.labels.signInTitle,
+      signInTooltip: this.props.signInStatus ? this.props.labels.signOutTooltip : this.props.labels.signInTooltip,
       signInStatus: this.props.signInStatus,
       loadingTime: 'Total loading time: ',
-      importSettingsTitle: this.props.importSettingsTitle
+      importSettingsTitle: this.props.labels.importSettingsTitle,
+      showRestartMessage: false
     };
 
     window.setImportStatus = this.setImportStatus.bind(this);
     window.setTotalLoadingTime = this.setTotalLoadingTime.bind(this);
     window.setEnableSignInButton = this.setEnableSignInButton.bind(this);
     window.handleSignInStateChange = this.handleSignInStateChange.bind(this);
+    window.showRestartMessage = this.showRestartMessage.bind(this);
+    window.hideRestartMessage = this.hideRestartMessage.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -53,7 +56,7 @@ class Static extends React.Component {
       <Container className='pr-3'>
         <Row className='mt-3'>
           <button className='secondaryButton' onClick={this.launchDynamo} tabIndex={1}>
-            {this.props.launchTitle}
+            {this.props.labels.launchTitle}
           </button>
         </Row>
 
@@ -67,14 +70,14 @@ class Static extends React.Component {
           </OverlayTrigger>
         </Row>
 
-        <Row className='mt-3'>
+        <Row className={`mt-3 importSettingsRow${this.state.showRestartMessage ? ' importSettingsRowWithReset' : ''}`}>
           <OverlayTrigger
             placement={'right'}
             overlay={
               <Tooltip
                 hidden={this.state.importStatus === importStatusEnum.success}
                 id='button-tooltip'>
-                {this.state.importStatus == importStatusEnum.error ? this.state.errorDescription : this.props.importSettingsTooltipDescription}
+                {this.state.importStatus === importStatusEnum.error ? this.state.errorDescription : this.props.labels.importSettingsTooltipDescription}
               </Tooltip>
             }>
             <label id='lblImportSettings' className='primaryButton px-1' tabIndex={3}>
@@ -95,11 +98,23 @@ class Static extends React.Component {
                   alt=''
                   hidden={this.state.importStatus !== importStatusEnum.success}></img>
                 <div className='importSettingsText'>
-                  <span>{this.props.importSettingsTitle}</span>
+                  <span>{this.props.labels.importSettingsTitle}</span>
                 </div>
               </div>
             </label>
           </OverlayTrigger>
+          {this.state.showRestartMessage && (
+            <button
+              className='resetButtonNextToImport'
+              title={this.props.labels.resetTooltip}
+              onClick={this.resetSettings}
+            >
+              <svg width='18' height='18' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <path d='M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z'
+                  fill='currentColor' />
+              </svg>
+            </button>
+          )}
         </Row>
 
         <Row className='mt-3'>
@@ -111,7 +126,7 @@ class Static extends React.Component {
               tabIndex={4} />
             <span className='checkmark'>
               {' '}
-              {this.props.showScreenAgainLabel}{' '}
+              {this.props.labels.showScreenAgainLabel}{' '}
             </span>
           </label>
         </Row>
@@ -127,13 +142,13 @@ class Static extends React.Component {
 
   //Opens a page to signin
   signIn = async () => {
-    if (chrome.webview !== undefined) {
+    if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
       if (this.state.signInStatus) {
         let status = await chrome.webview.hostObjects.scriptObject.SignOut();
         this.setState({
           signInStatus: !status,
-          signInTitle: this.props.signInTitle,
-          signInTooltip: this.props.signInTooltip
+          signInTitle: this.props.labels.signInTitle,
+          signInTooltip: this.props.labels.signInTooltip
         });
       }
       else {
@@ -141,7 +156,7 @@ class Static extends React.Component {
         btn.classList.add('disableButton');
         btn.disabled = true;
 
-        this.setState({ signInTitle: this.props.signingInTitle });
+        this.setState({ signInTitle: this.props.labels.signingInTitle });
         let status = await chrome.webview.hostObjects.scriptObject.SignIn();
         this.setState({ signInStatus: status });
 
@@ -149,14 +164,14 @@ class Static extends React.Component {
         btn.disabled = false;
         if (status) {
           this.setState({
-            signInTitle: this.props.signOutTitle,
-            signInTooltip: this.props.signOutTooltip
+            signInTitle: this.props.labels.signOutTitle,
+            signInTooltip: this.props.labels.signOutTooltip
           });
         }
         else {
           this.setState({
-            signInTitle: this.props.signInTitle,
-            signInTooltip: this.props.signInTooltip
+            signInTitle: this.props.labels.signInTitle,
+            signInTooltip: this.props.labels.signInTooltip
           });
         }
       }
@@ -165,8 +180,8 @@ class Static extends React.Component {
 
   //This method calls another method from Dynamo to actually launch it
   launchDynamo() {
-    if (chrome.webview !== undefined) {
-      //The 'checked' is a boolean that represents if the user don't want to show the Static screen again
+    //The 'checked' is a boolean that represents if the user don't want to show the Static screen again
+    if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
       chrome.webview.hostObjects.scriptObject.LaunchDynamo(checked);
     }
   }
@@ -177,12 +192,21 @@ class Static extends React.Component {
     if (file) {
       let fr = new FileReader();
       fr.onload = function () {
-        if (chrome.webview !== undefined) {
+        if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
           chrome.webview.hostObjects.scriptObject.ImportSettings(fr.result);
         }
       };
 
       fr.readAsText(file);
+
+      // Clear the input so the same file can be selected again
+      event.target.value = '';
+
+      // Debug mode: mock Dynamo callbacks when running outside WebView2
+      if (typeof chrome === 'undefined' || typeof chrome.webview === 'undefined') {
+        console.log('[SplashScreen] Debug mode: mocking import callbacks');
+        this.setImportStatus({ status: 3, importSettingsTitle: 'Import Settings', errorDescription: '' });
+      }
     }
   }
 
@@ -193,6 +217,12 @@ class Static extends React.Component {
       importSettingsTitle: importStatus.importSettingsTitle,
       errorDescription: importStatus.errorDescription,
     });
+
+    if (importStatus.status === importStatusEnum.success) {
+      this.showRestartMessage();
+    } else if (importStatus.status === importStatusEnum.none) {
+      this.hideRestartMessage();
+    }
   }
 
   setTotalLoadingTime(loadingTime) {
@@ -221,17 +251,45 @@ class Static extends React.Component {
 
     if (auth.status === 'True') {
       this.setState({
-        signInTitle: this.props.signOutTitle,
-        signInTooltip: this.props.signOutTooltip
+        signInTitle: this.props.labels.signOutTitle,
+        signInTooltip: this.props.labels.signOutTooltip
       });
     }
     else {
       this.setState({
-        signInTitle: this.props.signInTitle,
-        signInTooltip: this.props.signInTooltip
+        signInTitle: this.props.labels.signInTitle,
+        signInTooltip: this.props.labels.signInTooltip
       });
     }
   }
+
+  //Show restart message and reset button after settings import
+  showRestartMessage() {
+    this.setState({
+      showRestartMessage: true
+    });
+    if (window.showToast) {
+      const message = (this.props.labels && this.props.labels.restartMessage) || Static.defaultProps.labels.restartMessage;
+      window.showToast(message, 'success');
+    }
+  }
+
+  //Hide restart message and reset button
+  hideRestartMessage() {
+    this.setState({
+      showRestartMessage: false
+    });
+    if (window.hideToast) {
+      window.hideToast();
+    }
+  }
+
+  //Reset imported settings
+  resetSettings = () => {
+    if (typeof chrome !== 'undefined' && chrome.webview !== undefined) {
+      chrome.webview.hostObjects.scriptObject.ResetSettings();
+    }
+  };
 
   handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -244,28 +302,24 @@ class Static extends React.Component {
 }
 
 Static.defaultProps = {
-  signInTitle: 'Sign In',
-  signInTooltip: 'Sign in to access online services that integrate with your desktop software.',
-  signingInTitle: 'Signing In',
-  signOutTitle: 'Sign Out',
-  signOutTooltip: 'Signing out of Dynamo will sign you out of all Autodesk desktop products.',
-  launchTitle: 'Launch Dynamo',
-  showScreenAgainLabel: 'Don\'t show this screen again',
-  importSettingsTitle: 'Import Settings',
-  importSettingsTooltipDescription: 'You can import custom settings here, which will overwrite your current settings. If you\'d like to preserve a copy of your current settings, export them before importing new settings. Settings not shown in the Preferences panel will be applied once Dynamo and any host program restarts.'
+  labels: {
+    signInTitle: 'Sign In',
+    signInTooltip: 'Sign in to access online services that integrate with your desktop software.',
+    signingInTitle: 'Signing In',
+    signOutTitle: 'Sign Out',
+    signOutTooltip: 'Signing out of Dynamo will sign you out of all Autodesk desktop products.',
+    launchTitle: 'Launch Dynamo',
+    showScreenAgainLabel: 'Don\'t show this screen again',
+    importSettingsTitle: 'Import Settings',
+    importSettingsTooltipDescription: 'You can import custom settings here, which will overwrite your current settings. If you\'d like to preserve a copy of your current settings, export them before importing new settings. Settings not shown in the Preferences panel will be applied once Dynamo and any host program restarts.',
+    restartMessage: 'Settings imported. Please restart Dynamo.',
+    resetTooltip: 'Reset imported settings'
+  }
 };
 
 Static.propTypes = {
-  signInTitle: PropTypes.string,
-  signInTooltip: PropTypes.string,
-  signingInTitle: PropTypes.string,
-  signOutTitle: PropTypes.string,
-  signOutTooltip: PropTypes.string,
-  launchTitle: PropTypes.string,
-  showScreenAgainLabel: PropTypes.string,
+  labels: PropTypes.object,
   signInStatus: PropTypes.bool,
-  importSettingsTitle: PropTypes.string,
-  importSettingsTooltipDescription: PropTypes.string,
   onCheckedChange: PropTypes.func
 };
 

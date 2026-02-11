@@ -9,7 +9,15 @@
 }
 
 .bottomMenu {
+  height: auto;
+}
+
+.bottomMenuHeader {
   height: 50%;
+}
+
+.bottomMenuContent {
+  height: auto;
 }
 
 .welcomeRow {
