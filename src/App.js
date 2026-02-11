@@ -69,7 +69,7 @@ class App extends React.Component {
                     {this.state.welcomeToDynamoTitle}
                   </div>
                 </Row>
-                {this.isDebugMode && <Row><div style={{ fontSize: '10px', color: 'yellow', marginTop: '4px' }}>Debug Mode</div></Row>}
+
               </Col>
             </Row>
             <Row className='bottomMenu bottomMenuContent'>
