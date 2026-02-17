@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 
 import Dynamic from './Dynamic';
 import Static from './Static';
+import Toast from './Toast';
 import { base64DynamoLogo, base64DynamoBackground } from './encodedImages';
 
 import './App.css';
@@ -14,6 +15,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.setBackgroundImage();
+    const noWebView = typeof chrome === 'undefined' || typeof chrome.webview === 'undefined';
+    this.isDebugMode = noWebView && new URLSearchParams(window.location.search).has('debug');
     this.state = {
       isChecked: false,
       welcomeToDynamoTitle: 'Welcome to Dynamo!',
@@ -41,7 +44,12 @@ class App extends React.Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
-    //TODO : As alternative we can receive the event from the Childs like the Static component
+
+    // Debug mode: auto-show Static when running outside Dynamo (no WebView2)
+    if (this.isDebugMode) {
+      console.log('[SplashScreen] Debug mode: no WebView2 detected, auto-loading Static');
+      this.setLoadingDone();
+    }
   }
 
   render() {
@@ -49,7 +57,7 @@ class App extends React.Component {
       <Container fluid>
         <Row>
           <Col className='menuOptions px-4' >
-            <Row className='bottomMenu'>
+            <Row className='bottomMenu bottomMenuHeader'>
               <Col>
                 <Row>
                   <div>
@@ -61,24 +69,16 @@ class App extends React.Component {
                     {this.state.welcomeToDynamoTitle}
                   </div>
                 </Row>
+
               </Col>
             </Row>
-            <Row className='bottomMenu'>
+            <Row className='bottomMenu bottomMenuContent'>
               <Col>
                 {
                   this.state.loadingDone ?
                     <Static
                       signInStatus={this.state.signInStatus}
-                      signInTitle={this.state.signInTitle}
-                      signInTooltip={this.state.signInTooltip}
-                      signingInTitle={this.state.signingInTitle}
-                      signOutTitle={this.state.signOutTitle}
-                      signOutTooltip={this.state.signOutTooltip}
-                      welcomeToDynamoTitle={this.state.welcomeToDynamoTitle}
-                      launchTitle={this.state.launchTitle}
-                      showScreenAgainLabel={this.state.showScreenAgainLabel}
-                      importSettingsTitle={this.state.importSettingsTitle}
-                      importSettingsTooltipDescription={this.state.importSettingsTooltipDescription}
+                      labels={this.state.labels}
                       onCheckedChange={this.handleCheckedChange}
                     /> : <Dynamic />
                 }
@@ -90,6 +90,7 @@ class App extends React.Component {
             <img className='screenBackground' alt='' src={base64DynamoBackground}></img>
           </Col>
         </Row>
+        <Toast />
       </Container>
     );
   }
@@ -98,15 +99,7 @@ class App extends React.Component {
   setLabels(labels) {
     this.setState({
       welcomeToDynamoTitle: labels.welcomeToDynamoTitle,
-      launchTitle: labels.launchTitle,
-      showScreenAgainLabel: labels.showScreenAgainLabel,
-      importSettingsTitle: labels.importSettingsTitle,
-      importSettingsTooltipDescription: labels.importSettingsTooltipDescription,
-      signInTitle: labels.signInTitle,
-      signInTooltip: labels.signInTooltip,
-      signingInTitle: labels.signingInTitle,
-      signOutTitle: labels.signOutTitle,
-      signOutTooltip: labels.signOutTooltip
+      labels: labels
     });
   }
 
