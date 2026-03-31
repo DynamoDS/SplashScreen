@@ -3,8 +3,7 @@
     "node": true,
     "browser": true,
     "es2021": true,
-    "jest": true,
-    "webextensions": true
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -25,11 +24,15 @@
       "version": "detect"
     }
   },
+  "globals": {
+    "chrome": "readonly"
+  },
   "ignorePatterns": ["dist"],
   "rules": {
     "indent": ["error", 2],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "jsx-quotes": ["error", "prefer-single"]
+    "jsx-quotes": ["error", "prefer-single"],
+    "no-console": "warn"
   }
 }
