@@ -45,7 +45,13 @@ function Static({ signInStatus: initialSignInStatus, labels, onCheckedChange }) 
   useEffect(() => {
     window.setImportStatus = (status) => {
       setImportStatus(status.status);
-      setErrorDescription(status.errorDescription || '');
+      if (status.status === importStatusEnum.error) {
+        const defaultErrorDescription =
+          'Something went wrong when importing your custom setting file. Please try again or proceed with default settings.';
+        const hasCustomDescription =
+          typeof status.errorDescription === 'string' && status.errorDescription.trim().length > 0;
+        setErrorDescription(hasCustomDescription ? status.errorDescription : defaultErrorDescription);
+      }
       if (status.status === importStatusEnum.success) {
         setShowRestartMessage(true);
         if (window.showToast) {
@@ -274,7 +280,8 @@ Static.defaultProps = {
     importSettingsTooltipDescription: 'You can import custom settings here, which will overwrite your current settings. If you\'d like to preserve a copy of your current settings, export them before importing new settings. Settings not shown in the Preferences panel will be applied once Dynamo and any host program restarts.',
     restartMessage: 'Settings imported. Please restart Dynamo.',
     resetTooltip: 'Reset imported settings'
-  }
+  },
+  onCheckedChange: () => {},
 };
 
 Static.propTypes = {
@@ -292,7 +299,7 @@ Static.propTypes = {
     resetTooltip: PropTypes.string,
   }),
   signInStatus: PropTypes.bool,
-  onCheckedChange: PropTypes.func.isRequired,
+  onCheckedChange: PropTypes.func,
 };
 
 export default Static;
