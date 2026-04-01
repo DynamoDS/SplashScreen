@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 22
       - name: Install dependencies
-        run: npm ci --force
+        run: npm ci
       - name: Build for development
         run: npm run build --if-present
       - name: Run Test
@@ -36,7 +36,7 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
-        run: npm ci --force
+        run: npm ci
       - name: Build for production
         run: npm run production --if-present
       - name: Run Test

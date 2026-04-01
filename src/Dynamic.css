@@ -25,23 +25,6 @@
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), #38ABDF, #38ABDF);
 }
 
-.progress-bar-indicator {
-  height: 100%;
-  border-radius: 25px;
-  -webkit-mask: linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0);
-}
-
-.progress-bar-indicator::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), #38ABDF, #38ABDF);
-}
-
 .dynamicOptions {
   margin-top: 50px;
 }
@@ -50,7 +33,7 @@
   font-size: 9px;
 }
 
-.loadingDescription{  
+.loadingDescription{
   height: 3.6em;
   line-height: 1.8em;
 }
