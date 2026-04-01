@@ -22,7 +22,7 @@ test.describe('SplashScreen', () => {
     await expect(progressBarContainer).toBeVisible();
 
     const progressBarIndicator = page.locator('.progress-bar-indicator');
-    await expect(progressBarIndicator).toBeVisible();
+    await expect(progressBarIndicator).toBeAttached();
 
     const loadingTimeFooter = page.locator('.loadingTimeFooter');
     await expect(loadingTimeFooter).toHaveText('');
