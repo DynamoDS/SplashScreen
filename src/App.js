@@ -36,10 +36,11 @@ class App extends React.Component {
   };
 
   setBackgroundImage() {
-    let backgroundImage = '#base64BackgroundImage';
-    if (!backgroundImage.includes('#'))
-      // eslint-disable-next-line no-import-assign
-      base64DynamoBackground = backgroundImage;
+    // Dynamo replaces this placeholder with the real image before loading the page.
+    // Keep the result on the instance: ES module imports are read-only, and assigning
+    // to the imported binding throws once the bundler emits getter-only exports.
+    const backgroundImage = '#base64BackgroundImage';
+    this.backgroundImage = backgroundImage.includes('#') ? base64DynamoBackground : backgroundImage;
   }
 
   componentDidMount() {
@@ -87,7 +88,7 @@ class App extends React.Component {
           </Col>
           <Col className='p-0' >
             {this.state.loadingDone && <span onClick={this.closeDynamo} className='close' />}
-            <img className='screenBackground' alt='' src={base64DynamoBackground}></img>
+            <img className='screenBackground' alt='' src={this.backgroundImage}></img>
           </Col>
         </Row>
         <Toast />
